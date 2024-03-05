@@ -7,7 +7,7 @@
   </head>
   <body>
     <input type="file" id="file">
-    <button>Чтение файла</button>
+    <button>Вирішення задач</button>
   
     <script>
       document.querySelector('button').addEventListener('click', function() {
@@ -60,43 +60,28 @@
             }
           }
 
-          // let sostedArr = arr.map(v => parseInt(v)).sort((a, b) => a - b);
-          
-          // console.log(sostedArr[0]);
-          // console.log(sostedArr[sostedArr.length - 1]);
-
-
-          // let M0 = (sostedArr[Math.floor((sostedArr.length - 1)/2)] + sostedArr[Math.floor(sostedArr.length /2)]) /2;
-          // console.log(M0);
-
-          // console.log(sostedArr.length);
-
           console.log(max);
           console.log(min);
-          // console.log(arr.reduce((a, e) => Number(a) + Number(e), 0)/arr.length);
-
-          //
-
-
+   
     function max_heapify(a,i,n){
-    let left = 2*i;              //Left child index
-    let right = 2*i+1;           //Right child index
+    let left = 2*i;              
+    let right = 2*i+1;           
     let maximum;
-    if(right<n){                 //Checks if right child exist
-        if(a[left]>=a[right]){    //Compares children to find maximum
+    if(right<n){                 
+        if(a[left]>=a[right]){    
             maximum = left;
         }
         else{
             maximum = right;
         }
     }
-    else if(left<n){                //Checks if left child exists
+    else if(left<n){                
         maximum = left;
     }
-    else return;                    //In case of no children return
-    if(a[i]<a[maximum]){            //Checks if the largest child is greater than parent
-        swap(a,i,maximum);          //If it is then swap both
-        max_heapify(a,maximum,n);       //max-heapify again
+    else return;                    
+    if(a[i]<a[maximum]){            
+        swap(a,i,maximum);          
+        max_heapify(a,maximum,n);      
     }
     return;
    }
@@ -104,11 +89,11 @@
 function heapSort(a){
     let n = a.length;
     for(let i=Math.floor(n/2)-1;i>=0;i--){
-        max_heapify(a,i,n);            //Building max heap
+        max_heapify(a,i,n);           
     }
     for(let i = n-1;i>=0;i--){
-        swap(a,0,i);              //Deleting root element
-        max_heapify(a,0,i);           //Building max heap again
+        swap(a,0,i);             
+        max_heapify(a,0,i);           
     }
     return a;
 }
@@ -120,10 +105,6 @@ function swap(arr, i, j) {
 }
     
 let heapSorted = heapSort([...arr]);
-// console.log(heapSorted[0]);
-// console.log(heapSorted[heapSorted.length - 1]);
-// console.log(heapSorted.length);
-
 
 let median = (heapSorted) => {
   if (heapSorted.length % 2) {
@@ -132,15 +113,7 @@ let median = (heapSorted) => {
     return (heapSorted[heapSorted.length / 2] + heapSorted[heapSorted.length / 2 - 1]) / 2;
   }
 }
-console.log(median(heapSorted));
-          // let M = (heapSorted[Math.floor((heapSorted.length - 1)/2)] + heapSorted[Math.floor(heapSorted.length /2)]) /2;
-          // console.log(M);
-          // console.log(parseInt(heapSorted[Math.floor((heapSorted.length - 1)/2)]));
-          // console.log(parseInt(heapSorted[Math.floor(heapSorted.length /2)]));
-          // console.log([Math.floor((heapSorted.length - 1)/2)]);
-          // console.log([Math.floor(heapSorted.length /2)]);
-
-          // console.log(sum);
+          console.log(median(heapSorted));
           console.log(Math.round(Number(sum)/arr.length));
           console.log(maxIncSequence);
           console.log(maxDecSequence);
