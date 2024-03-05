@@ -12,6 +12,6 @@
     5*. найбільшу послідовність чисел (які ідуть один за одним), яка збільшується (опціонально)
     6*. найбільшу послідовність чисел (які ідуть один за одним), яка зменьшується (опціонально)
 
-### [Github Pages](https://vitaliy-mazurenko.github.io/PortaOne-task/).
+### [Посилання на сторінку Github Pages](https://vitaliy-mazurenko.github.io/PortaOne-task/).
 
 
