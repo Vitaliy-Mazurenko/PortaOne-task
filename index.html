@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PortaOne</title>
+  </head>
+  <body>
+    <input type="file" id="file">
+    <button>Чтение файла</button>
+  
+    <script>
+      document.querySelector('button').addEventListener('click', function() {
+        let file = document.getElementById('file').files[0];
+        let reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = function() {
+          let arr = reader.result.trim().split("\n").map(v => parseInt(v));
+          let maxIncSequence = [];
+          let maxDecSequence = [];
+          let tempIncArr = [arr[0]];
+          let tempDecArr = [arr[0]];
+          let sum = 0n;
+          let max = arr[0], elMax;
+          let min = arr.length-1, elMin;
+
+          for (let i =  0 ; i < arr.length ; i++) {
+
+              if(arr[i] < arr[i - 1]){
+                tempDecArr.push(arr[i]);
+              } else {
+                if (tempDecArr.length > maxDecSequence.length) {
+                  maxDecSequence = [...tempDecArr];
+                }
+                tempDecArr = [arr[i]];
+              }           
+            
+              if(arr[i] > arr[i - 1]){              
+                tempIncArr.push(arr[i]);            
+              } else {
+                if (tempIncArr.length > maxIncSequence.length) {
+                maxIncSequence = [...tempIncArr];
+                }
+                tempIncArr = [arr[i]]; 
+              }
+            
+                        
+              if(parseInt(arr[i])){
+                sum += BigInt(arr[i]);
+              }
+
+            let elMax = arr[i]; 
+            if (elMax > max) {
+             max = parseInt(arr[i]);
+             }
+
+             elMin = arr[i];
+            if (elMin < min){
+              min = elMin;
+            }
+          }
+
+          // let sostedArr = arr.map(v => parseInt(v)).sort((a, b) => a - b);
+          
+          // console.log(sostedArr[0]);
+          // console.log(sostedArr[sostedArr.length - 1]);
+
+
+          // let M0 = (sostedArr[Math.floor((sostedArr.length - 1)/2)] + sostedArr[Math.floor(sostedArr.length /2)]) /2;
+          // console.log(M0);
+
+          // console.log(sostedArr.length);
+
+          console.log(max);
+          console.log(min);
+          // console.log(arr.reduce((a, e) => Number(a) + Number(e), 0)/arr.length);
+
+          //
+
+
+    function max_heapify(a,i,n){
+    let left = 2*i;              //Left child index
+    let right = 2*i+1;           //Right child index
+    let maximum;
+    if(right<n){                 //Checks if right child exist
+        if(a[left]>=a[right]){    //Compares children to find maximum
+            maximum = left;
+        }
+        else{
+            maximum = right;
+        }
+    }
+    else if(left<n){                //Checks if left child exists
+        maximum = left;
+    }
+    else return;                    //In case of no children return
+    if(a[i]<a[maximum]){            //Checks if the largest child is greater than parent
+        swap(a,i,maximum);          //If it is then swap both
+        max_heapify(a,maximum,n);       //max-heapify again
+    }
+    return;
+   }
+           
+function heapSort(a){
+    let n = a.length;
+    for(let i=Math.floor(n/2)-1;i>=0;i--){
+        max_heapify(a,i,n);            //Building max heap
+    }
+    for(let i = n-1;i>=0;i--){
+        swap(a,0,i);              //Deleting root element
+        max_heapify(a,0,i);           //Building max heap again
+    }
+    return a;
+}
+
+function swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+    
+let heapSorted = heapSort([...arr]);
+// console.log(heapSorted[0]);
+// console.log(heapSorted[heapSorted.length - 1]);
+// console.log(heapSorted.length);
+
+
+let median = (heapSorted) => {
+  if (heapSorted.length % 2) {
+    return heapSorted[Math.floor(heapSorted.length / 2)];
+  } else {
+    return (heapSorted[heapSorted.length / 2] + heapSorted[heapSorted.length / 2 - 1]) / 2;
+  }
+}
+console.log(median(heapSorted));
+          // let M = (heapSorted[Math.floor((heapSorted.length - 1)/2)] + heapSorted[Math.floor(heapSorted.length /2)]) /2;
+          // console.log(M);
+          // console.log(parseInt(heapSorted[Math.floor((heapSorted.length - 1)/2)]));
+          // console.log(parseInt(heapSorted[Math.floor(heapSorted.length /2)]));
+          // console.log([Math.floor((heapSorted.length - 1)/2)]);
+          // console.log([Math.floor(heapSorted.length /2)]);
+
+          // console.log(sum);
+          console.log(Math.round(Number(sum)/arr.length));
+          console.log(maxIncSequence);
+          console.log(maxDecSequence);
+
+        document.write('<div> 1. максимальне число в файлі: ' + max + '</div>');
+        document.write('<div> 2. мінімальне число в файлі: ' + min + '</div>');
+        document.write('<div> 3. медіана: '  + median(heapSorted) + '</div>');
+        document.write('<div> 4. середнє арифметичне значення: ' + Math.round(Number(sum)/arr.length) + '</div>');
+        document.write('<div> 5*. найбільша послідовність чисел (які ідуть один за одним), яка збільшується : ' + maxIncSequence + '</div>');
+        document.write('<div> 6*. найбільша послідовність чисел (які ідуть один за одним), яка зменьшується: ' + maxDecSequence + '</div>');
+        }
+        reader.onerror = function() {
+          console.log(reader.error);
+        }
+
+      })
+    </script>
+  </body>
+</html>
